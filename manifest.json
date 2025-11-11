@@ -1,0 +1,10 @@
+{
+   "name": "The Free Pomodoro ",
+   "description": "Free Pomodoro timer to use for studying, work, business, and more. Simple to use and visually aesthetic.",
+   "version": "1.0",
+   "manifest_version": 3,
+   "action": {
+    "default_popup": "index.html",
+    "default_icon": "profile-img.png"
+   }
+}
