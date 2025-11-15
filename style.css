@@ -6,8 +6,8 @@
 --blue950:hsl(233,39%,13%);
 --blue900:hsl(234,39%,14%);
 --blue850:hsl(235,35%,18%);
--blue100:hsl(227,100%,92%);
--blue50:hsl(229,52%,96%);
+--blue100:hsl(227,100%,92%);
+--blue50:hsl(229,52%,96%);
 
 
 /*grey*/
@@ -16,11 +16,11 @@
 
 /*other*/
 --cyan300:hsl(182,91%,71%);
---red400:hsl(248,112%,112%);
+--red400:hsl(345, 100%, 65%);
 --purple400:hsl(284,89%,74%);
 
 /*gradients*/
---red:linear-gradient(hsl(235,32%,27%), hsl(234, 50%,11%));
+--gradient-1:linear-gradient(0.75turn,hsl(235,32%,27%), hsl(234, 50%,11%));
 
 
 /*spacing*/
@@ -55,10 +55,12 @@
 --font-size12:.75rem;
 --font-size13:.8125rem;
 --font-size16:1rem;
+--font-size32:2rem;
 
 /*letter-spacing*/
 
 --letter-spacing0: 0px;
+--letter-spacing1: 1px;
 --letter-spacing15: 15px;
 --letter-spacing13: 13px;
 --letter-spacing-10: -10px;
@@ -87,13 +89,19 @@ html {
 
 
 body {
-   
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
   min-height: 100vh;
   line-height: 1.4;
   text-rendering: optimizeSpeed;
   font-size: normal;
   font-weight: 700;
   font-optical-sizing: auto;
+  background: var(--blue850);
+  color: var(--white);
+  font-family: var(--kumbh-sans);
 }
 
 
@@ -218,4 +226,133 @@ textarea {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+/*utility classes*/
+
+.flex-center-center{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+
+/* title and button styling*/
+
+.title{
+  font-size: var(--font-size32);
+  letter-spacing: var(--letter-spacing1);
+}
+.list{
+  padding: var(--spacing-100) var(--spacing-100);
+  border-radius: 2rem;
+  background-color: var(--blue950);
+  
+}
+.list > .item {
+  font-size: var(--font-size14);
+  letter-spacing: var(--letter-spacing1);
+  color: var(--grey400);
+  padding: var(--spacing-200);
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.list > .item[data-active="true"]{
+  color: var(--blue950);
+  background: var(--red400);
+  
+  }
+
+.list > .item:active{
+  color: var(--blue100);
+}
+/*timer style*/
+.nav{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-500);
+}
+.nav > .list {
+  display: flex;
+  gap: var(--spacing-500);
+}
+.box{
+  width: 100px;
+  height: 100px;
+  background-color: black;
+}
+.timer-container{
+
+  flex: 0.25;
+  
+}
+.timer-bg{
+    display: grid;
+    place-items: center;
+    width: 515px;
+    height: 515px;
+    background:var(--gradient-1);
+    border-radius: 50%;
+    box-shadow: -50px -30px 40px 5px  hsla(236, 32%, 27%, 0.369);
+}
+.timer-fg{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--blue900);
+    width: 480px;
+    height: 480px;
+    border-radius: 50%;
+}
+
+.time{
+  position: absolute;
+ 
+}
+.circle-container{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  
+ 
+}
+
+circle{
+  fill: var(--blue900);
+ stroke: var(--red400);
+}
+
+
+.clock{
+  font-size: var(--font-size100);
+}
+
+.pause{
+  font-size: var(--font-size16);
+  letter-spacing: var(--letter-spacing13);
+  text-transform: uppercase;
+}
+.pause:active{
+  color: var(--red400);
+}
+
+.setting{
+  margin-top: auto;
+ 
+}
+
+.setting  .setting-icon{
+  fill: var(--grey400);
+  cursor: pointer;
+}
+
+.setting .setting-icon:hover{
+  fill: var(--grey200);
 }
