@@ -67,6 +67,10 @@
 --letter-spacing5: 5px;
 --letter-spacing-5: -5px;
 
+
+/*manipulable styles through Javascript*/
+--COLOR_THEME:var(--red400);
+--FONT_THEME:var(--kumbh-sans);
 }
 
 /*defualt styles*/
