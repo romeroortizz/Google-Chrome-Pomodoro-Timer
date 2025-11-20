@@ -267,7 +267,7 @@ textarea {
 
 .list > .item[data-active="true"]{
   color: var(--blue950);
-  background: var(--red400);
+  background: var(--COLOR_THEME);
   
   }
 
@@ -330,7 +330,7 @@ textarea {
 
 circle{
   fill: var(--blue900);
- stroke: var(--red400);
+ stroke: var(--COLOR_THEME);
 }
 
 
