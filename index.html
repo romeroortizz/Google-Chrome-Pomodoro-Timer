@@ -76,6 +76,96 @@
     <button class="btn">click me</button>
 
 
+    <dialog class="settings-dialog" >
+        <form class="dialog-form">
+            <div class="dialog-head">
+                <h3 class="dialog-heading">Settings</h3>
+                 
+                <button class="close-icon-button" formmethod="dialog">
+
+                    <svg class="close-icon" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="11.3145" y="0.707107" width="1" height="15" transform="rotate(45 11.3145 0.707107)" fill="#D8D8D8"
+                            stroke="#979797" />
+                        <rect y="0.707107" width="1" height="15" transform="matrix(-0.707107 0.707107 0.707107 0.707107 0.914063 0.207107)"
+                            fill="#D8D8D8" stroke="#979797" />
+                    </svg>
+
+                </button>
+            </div>
+            
+            <div class="dialog-time-content">
+              
+                <fieldset class="time-inputs">
+                    <legend class="time-heading">TIME (MINUTES)</legend>
+                    <div class="time-input pomodoro-time">
+                        <label for="pomodoro">pomodoro</label>
+                        <input type="number" id="pomodoro" name="pomodoro" value="25" min="15" max="60">
+                    </div>
+
+                    <div class="time-input short-time">
+                         <label for="short-break">short break</label>
+                        <input class="short" type="number" id="short-break" value="5" name="short-break" min="1" max="15">
+                    </div>
+
+                    <div class="time-input long-time">
+                         <label for="long-break">pomodoro</label>
+                        <input class="long" type="number" id="long-break" value="15" name="long-break" min="10" max="25">
+                    </div>
+
+                </fieldset>
+            </div>
+
+            <div class="dialog-font-content">
+               
+                <fieldset class="font-inputs">
+                      <legend class="font-heading">FONT</legend>
+
+                    <div class="font-input space-font">
+                        <label for="space">Aa</label>
+                        <input type="radio" id="space" name="space" value="Space Mono" checked>
+                    </div>
+
+                    <div class="font-input kumbh-font">
+                         <label for="kumbh">Aa</label>
+                        <input type="radio" id="kumbh" name="kumbh" value="Kumbh Sans">
+                    </div>
+
+                    <div class="font-input roboto-font">
+                        <label for="roboto">Aa</label>
+                        <input type="radio" id="roboto" name="roboto" value="Roboto Slab">
+                    </div>
+
+                </fieldset>
+            </div>
+
+            <div class="dialog-color-content">
+                <fieldset class="color-inputs">
+
+                    <legend class="color-heading">COLOR</legend>
+
+                      <div class="color-input red400">
+                        <label for="red400">red</label>
+                        <input type="radio" id="red400" name="red400" value="red">
+                    </div>
+
+                    <div class="color-input">
+                        <label for="cyan300">cyan</label>
+                        <input type="radio" id="cyan300" name="cyan300" value="cyan">
+                    </div>
+
+                    <div class="color-input purple400">
+                        <label for="purple400">purple</label>
+                        <input type="radio" id="purple400" name="purple400" value="purple">
+                    </div>
+
+                   
+                </fieldset>
+            </div>
+
+
+        </form>
+    </dialog>
+
     <script src="./scripts/app.js"></script>
 </body>
 </html>

@@ -2,7 +2,10 @@ const clock = document.querySelector('.clock')
 const pauseBtn = document.querySelector('.pause')
 const btn = document.querySelector('.btn')
 
+const settings = document.querySelector('.setting-icon')
 const list = document.querySelector('.list')
+const settingsDialog = document.querySelector('.settings-dialog')
+const closeIcon = document.querySelector('.close-icon')
 
 const shortBreak = document.querySelector('.short-break')
 const longBreak = document.querySelector('.long-break')
@@ -17,8 +20,6 @@ function cssVariableValues() {
 
         getColorTheme: function () { return ROOTSTYLES.getPropertyValue('--COLOR_THEME') },
         getFontTheme: function () {  return ROOTSTYLES.getPropertyValue('--FONT_THEME') }
-
-        
 
     }
 }
@@ -172,6 +173,11 @@ pomodoro.addEventListener('click', (e) => {
 
 btn.addEventListener('click', (e) => {
     test()
+})
+
+settings.addEventListener('click', (e) => {
+    
+    settingsDialog.showModal()
 })
 
 function test() { 
