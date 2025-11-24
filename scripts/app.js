@@ -2,6 +2,12 @@ const clock = document.querySelector('.clock')
 const pauseBtn = document.querySelector('.pause')
 const btn = document.querySelector('.btn')
 
+const list = document.querySelector('.list')
+
+const shortBreak = document.querySelector('.short-break')
+const longBreak = document.querySelector('.long-break')
+const pomodoro = document.querySelector('.pomodoro')
+
 let time
 
 function cssVariableValues() {
@@ -22,9 +28,9 @@ function timerDetails() {
 
     
     return {
-        pomodoroTime:  1500, // 25 minutes 
-        shortBreak:  300, // 5 minutes
-        longBreak:  900,  // 10 minutes
+        pomodoroTime:  1500, // 25 minutes 25:00
+        shortBreak:  300, // 5 minutes 05:00
+        longBreak:  900,  // 10 minutes 10:00
 
     }
 }
@@ -134,6 +140,35 @@ pauseBtn.addEventListener('click', (e) => {
     
 })
 
+shortBreak.addEventListener('click', (e) => {
+
+    resetActiveState()
+    shortBreak.setAttribute('data-active', 'true')
+
+    // if(timerDetails().shortBreak<=)
+    clock.textContent = `0${timerDetails().shortBreak / 60}:00`
+        
+    
+    
+})
+
+longBreak.addEventListener('click', (e) => {
+
+    resetActiveState()
+    longBreak.setAttribute('data-active', 'true')
+
+    clock.textContent = `${timerDetails().longBreak / 60}:00`
+
+    console.log('long break')
+});
+
+pomodoro.addEventListener('click', (e) => {
+
+    resetActiveState()
+    pomodoro.setAttribute('data-active', 'true')
+
+    clock.textContent = `${timerDetails().pomodoroTime / 60}:00`
+})
 
 btn.addEventListener('click', (e) => {
     test()
@@ -153,3 +188,22 @@ function test() {
     time.reset()
   
 }
+
+//iterator through list and set data-active to false
+function resetActiveState() {
+
+    for (let child of list.children) {
+
+        if (child.hasAttribute("data-active")) {
+            child.getAttribute("data-active") === "true" ? child.setAttribute("data-active","false")  :  undefined
+        }
+
+        //to be continued
+        if (!child.hasAttribute("data-active")) {
+            
+        }
+      
+    }
+   
+}
+
