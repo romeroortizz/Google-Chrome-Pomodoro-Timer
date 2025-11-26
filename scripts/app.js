@@ -1,17 +1,22 @@
 const clock = document.querySelector('.clock')
 const pauseBtn = document.querySelector('.pause')
 const btn = document.querySelector('.btn')
+const circularProgress = document.querySelector('.circularProgress')
 
 const settings = document.querySelector('.setting-icon')
 const list = document.querySelector('.list').children
 const settingsDialog = document.querySelector('.settings-dialog')
 const closeIcon = document.querySelector('.close-icon')
-
+const dialogBtn = document.querySelector('.dialog-btn')
+const dialogForm = document.querySelector('.dialog-form')
 const shortBreak = document.querySelector('.short-break')
 const longBreak = document.querySelector('.long-break')
 const pomodoro = document.querySelector('.pomodoro')
 
 let time = null
+
+//Main TimerDetails Instance
+const timerConfig = timerDetails()
 
 function cssVariableValues() {
     const ROOTSTYLES = window.getComputedStyle(document.body)
@@ -103,16 +108,16 @@ pauseBtn.addEventListener('click', (e) => {
             if (l.getAttribute("data-active") === 'true') {
 
                 switch (l.textContent) {
-                    case `${timerDetails().modes[0].toLowerCase()}`:
+                    case `${timerConfig.modes[0].toLowerCase()}`:
                         console.log('Pom')
-                        time = startTimer(clock, 1500)
+                        time = startTimer(clock, timerConfig.pomodoroTime)
                         break
-                    case `${timerDetails().modes[1].toLowerCase()}`:
-                        time = startTimer(clock, 900)
+                    case `${timerConfig.modes[1].toLowerCase()}`:
+                        time = startTimer(clock, timerConfig.longBreak)
                         console.log('Long')
                         break
-                    case `${timerDetails().modes[2].toLowerCase()}`:
-                         time = startTimer(clock, 300)
+                    case `${timerConfig.modes[2].toLowerCase()}`:
+                         time = startTimer(clock, timerConfig.shortBreak)
                         console.log('Short')
                         break
                     default: 
@@ -143,6 +148,8 @@ pauseBtn.addEventListener('click', (e) => {
 
 shortBreak.addEventListener('click', (e) => {
     pauseBtn.setAttribute('data-state', 'noState')
+    timerConfig.currentMode = "Short Break"
+
     
      if (time !== null) {
           time.pause()
@@ -153,7 +160,7 @@ shortBreak.addEventListener('click', (e) => {
     shortBreak.setAttribute('data-active', 'true')
 
     // if(timerDetails().shortBreak<=)
-    clock.textContent = `0${timerDetails().shortBreak / 60}:00`
+    clock.textContent = `0${timerConfig.shortBreak / 60}:00`
         
     
     
@@ -170,7 +177,7 @@ longBreak.addEventListener('click', (e) => {
     resetActiveState()
     longBreak.setAttribute('data-active', 'true')
 
-    clock.textContent = `${timerDetails().longBreak / 60}:00`
+    clock.textContent = `${timerConfig.longBreak / 60}:00`
 
     console.log('long break')
 });
@@ -187,17 +194,56 @@ pomodoro.addEventListener('click', (e) => {
     resetActiveState()
     pomodoro.setAttribute('data-active', 'true')
 
-    clock.textContent = `${timerDetails().pomodoroTime / 60}:00`
+    clock.textContent = `${timerConfig.pomodoroTime / 60}:00`
 })
 
 btn.addEventListener('click', (e) => {
-    test()
+    circularProgress.setAttribute('stroke-dashoffset','100') 
+   console.log(circularProgress.getAttribute('stroke-dashoffset'))
 })
 
+
+
+
+
+
+
 settings.addEventListener('click', (e) => {
-    
+    console.log(dialogBtn)
     settingsDialog.showModal()
+    
 })
+
+dialogBtn.addEventListener('click', getFormDetails)
+
+function getFormDetails(e) {
+    e.preventDefault()
+
+    const formDetails = []
+   
+    const userSelectedSettings = new FormData(dialogForm)
+
+    for (const [key, value] of userSelectedSettings) {
+        formDetails.push({key: `${key}`, value: `${value}`})
+    }
+
+
+    readFormData(formDetails)
+   
+    
+}
+
+
+function readFormData(formData) {
+    console.log(formData)
+
+   
+}
+
+
+
+
+
 
 function test() { 
     // if (!time) {
@@ -206,12 +252,14 @@ function test() {
 
     // time.timer()
    
-    if (!time) {
-        time = startTimer(clock)
-    }
+    // if (!time) {
+    //     time = startTimer(clock)
+    // }
 
-    time.reset()
-  
+    // time.reset()
+ 
+    console.log(getFormDetails())
+     
 }
 
 //iterator through list and set data-active to false
