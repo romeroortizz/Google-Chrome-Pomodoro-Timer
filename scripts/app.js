@@ -3,7 +3,7 @@ const pauseBtn = document.querySelector('.pause')
 const btn = document.querySelector('.btn')
 
 const settings = document.querySelector('.setting-icon')
-const list = document.querySelector('.list')
+const list = document.querySelector('.list').children
 const settingsDialog = document.querySelector('.settings-dialog')
 const closeIcon = document.querySelector('.close-icon')
 
@@ -11,7 +11,7 @@ const shortBreak = document.querySelector('.short-break')
 const longBreak = document.querySelector('.long-break')
 const pomodoro = document.querySelector('.pomodoro')
 
-let time
+let time = null
 
 function cssVariableValues() {
     const ROOTSTYLES = window.getComputedStyle(document.body)
@@ -23,7 +23,6 @@ function cssVariableValues() {
 
     }
 }
-
 
 function timerDetails() {
 
@@ -39,16 +38,9 @@ function timerDetails() {
     }
 }
 
-
-// function modalDetails() {
-    
-// }
-
-
-function startTimer(display) {
-    let duration = timerDetails().pomodoroTime
+function startTimer(display,dur) {
+    let duration = dur
     let start = Date.now(), diff, minutes, seconds
-   
      
     const timer = () => {
 
@@ -71,26 +63,18 @@ function startTimer(display) {
         
             clearInterval(timerOutID)
           
-        }
-
-        
+        }  
     }
    
-
-    
-
     const pause = () => {
-        
+      
         clearInterval(timerOutID)   
         timerOutID = null
 
         //time remaining right after pause 
         duration = diff
-       
         console.log('pause:', duration)
-        
     }
-      
 
     const unPause = () => {
         console.log('unpuase',duration)
@@ -99,33 +83,46 @@ function startTimer(display) {
         
         timerOutID = setInterval(timer,1000)
     }
-
     const reset = () => {
-
         // reset timer back to appropriate set time
        timer()
         // timerOutID = setInterval(timer, 1000)
-        
     }
 
-
-   
     let timerOutID = setInterval(timer,1000)
- 
-
 
     return{timer,pause,unPause,reset}
-   
 }
 
 // Event listeners: pause, pomodoro, short break, long break
 
 pauseBtn.addEventListener('click', (e) => {
-
+    console.log(time)
     if (!time) {
-        time = startTimer(clock)
+        for (let l of list) {
+            if (l.getAttribute("data-active") === 'true') {
+
+                switch (l.textContent) {
+                    case `${timerDetails().modes[0].toLowerCase()}`:
+                        console.log('Pom')
+                        time = startTimer(clock, 1500)
+                        break
+                    case `${timerDetails().modes[1].toLowerCase()}`:
+                        time = startTimer(clock, 900)
+                        console.log('Long')
+                        break
+                    case `${timerDetails().modes[2].toLowerCase()}`:
+                         time = startTimer(clock, 300)
+                        console.log('Short')
+                        break
+                    default: 
+                        console.log("Not matching mode found from object")
+                }              
+                
+            }          
+        }     
     }
-    
+      
     if (pauseBtn.getAttribute('data-state') === 'noState') {
         pauseBtn.setAttribute('data-state', 'play')
         time.timer()
@@ -145,7 +142,13 @@ pauseBtn.addEventListener('click', (e) => {
 })
 
 shortBreak.addEventListener('click', (e) => {
-
+    pauseBtn.setAttribute('data-state', 'noState')
+    
+     if (time !== null) {
+          time.pause()
+        time = null
+    } 
+  
     resetActiveState()
     shortBreak.setAttribute('data-active', 'true')
 
@@ -157,7 +160,13 @@ shortBreak.addEventListener('click', (e) => {
 })
 
 longBreak.addEventListener('click', (e) => {
-
+    pauseBtn.setAttribute('data-state', 'noState')
+    if (time !== null) {
+          time.pause()
+        time = null
+    } 
+   
+   
     resetActiveState()
     longBreak.setAttribute('data-active', 'true')
 
@@ -167,6 +176,13 @@ longBreak.addEventListener('click', (e) => {
 });
 
 pomodoro.addEventListener('click', (e) => {
+    pauseBtn.setAttribute('data-state', 'noState')
+
+     if (time !== null) {
+          time.pause()
+        time = null
+    } 
+
 
     resetActiveState()
     pomodoro.setAttribute('data-active', 'true')
@@ -201,18 +217,13 @@ function test() {
 //iterator through list and set data-active to false
 function resetActiveState() {
 
-    for (let child of list.children) {
+    for (let child of list) {
 
         if (child.hasAttribute("data-active")) {
             child.getAttribute("data-active") === "true" ? child.setAttribute("data-active","false")  :  undefined
         }
-
         //to be continued
-        if (!child.hasAttribute("data-active")) {
-            
-        }
-      
+        if (!child.hasAttribute("data-active")) {      
+        }  
     }
-   
 }
-
