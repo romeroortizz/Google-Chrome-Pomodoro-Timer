@@ -73,11 +73,15 @@
     </div>
 
 
-    <button class="btn">click me</button>
+    <!-- <button class="btn">click me</button> -->
 
 
     <dialog class="settings-dialog" >
         <form class="dialog-form">
+
+            
+
+            
             <div class="dialog-head">
                 <h3 class="dialog-heading">Settings</h3>
                  
@@ -91,79 +95,117 @@
                     </svg>
 
                 </button>
+
+                
             </div>
-            
-            <div class="dialog-time-content">
+
+
+            <hr class="line">
+            <div class="dialog-body">
+
+                 <div class="dialog-time-content">
               
-                <fieldset class="time-inputs">
+                <fieldset class="time-inputs border-bottom padding-bottom-24">
                     <legend class="time-heading">TIME (MINUTES)</legend>
-                    <div class="time-input pomodoro-time">
-                        <label for="pomodoro">pomodoro</label>
-                        <input type="number" id="pomodoro" name="pomodoro" value="25" min="15" max="60">
-                    </div>
 
-                    <div class="time-input short-time">
-                         <label for="short-break">short break</label>
-                        <input class="short" type="number" id="short-break" value="5" name="short-break" min="1" max="15">
+                    <div class="time-row">
+                        <div class="time-input pomodoro-time">
+                            <label for="pomodoro">pomodoro</label>
+                            <input type="number" id="pomodoro" name="pomodoro" value="25" min="15" max="60">
+                        </div>
+                    
+                        <div class="time-input short-time">
+                            <label for="short-break">short break</label>
+                            <input class="short" type="number" id="short-break" value="5" name="short-break" min="1" max="15">
+                        </div>
+                    
+                        <div class="time-input long-time">
+                            <label for="long-break">pomodoro</label>
+                            <input class="long" type="number" id="long-break" value="15" name="long-break" min="10" max="25">
+                        </div>
                     </div>
-
-                    <div class="time-input long-time">
-                         <label for="long-break">pomodoro</label>
-                        <input class="long" type="number" id="long-break" value="15" name="long-break" min="10" max="25">
-                    </div>
+                   
 
                 </fieldset>
             </div>
 
             <div class="dialog-font-content">
                
-                <fieldset class="font-inputs">
-                      <legend class="font-heading">FONT</legend>
+                <fieldset class="font-inputs border-bottom padding-top-24 padding-bottom-24">
+                <div class="row">
 
-                    <div class="font-input space-font">
-                        <label for="space">Aa</label>
-                        <input type="radio" id="space" name="space" value="Space Mono" checked>
-                    </div>
+                    <legend class="font-heading">FONT</legend>
 
-                    <div class="font-input kumbh-font">
-                         <label for="kumbh">Aa</label>
-                        <input type="radio" id="kumbh" name="kumbh" value="Kumbh Sans">
-                    </div>
+                    <div class="input-group">
+                        <div class="font-input kumbh-font">
+                            
+                            <input type="radio" id="kumbh" name="forFont" value="Kumbh Sans" checked>
 
-                    <div class="font-input roboto-font">
-                        <label for="roboto">Aa</label>
-                        <input type="radio" id="roboto" name="roboto" value="Roboto Slab">
+                            <label  for="kumbh"><span class="display kumbh-display" >Aa</span></label>
+                        </div>
+                    
+                        <div class="font-input space-font">
+                           
+                            <input type="radio" id="space" name="forFont" value="Space Mono">
+                             <label for="space"><span class="display space-display" >Aa</span></label>
+                        </div>
+                    
+                        <div class="font-input roboto-font">
+                       
+                            <input type="radio" id="roboto" name="forFont" value="Roboto Slab">
+                            <label for="roboto"><span class="display roboto-display" >Aa</span></label>
+                        </div>
                     </div>
+                    
+                   
+
+
+                </div>
 
                 </fieldset>
             </div>
 
             <div class="dialog-color-content">
-                <fieldset class="color-inputs">
+                <fieldset class="color-inputs padding-top-24 ">
 
+                    <div class="row">
+
+                    
                     <legend class="color-heading">COLOR</legend>
 
-                      <div class="color-input red400">
-                        <label for="red400">red</label>
-                        <input type="radio" id="red400" name="red400" value="red">
+                    <div class="input-group">
+                        <div class="color-input red400">
+                            <input type="radio" id="red400" name="forColor" value="red" checked>
+                            <label class="red-style" for="red400"><span class="disappear">red</span></label>
+                            
+                        </div>
+                    
+                        <div class="color-input cyan300">
+                            <input type="radio" id="cyan300" name="forColor" value="cyan">
+                            <label class="cyan-style" for="cyan300"><span class="disappear">cyan</span></label>
+                            
+                        </div>
+                    
+                        <div class="color-input purple400">
+                            <input type="radio" id="purple400" name="forColor" value="purple">
+                            <label class="purple-style" for="purple400" ar><span class="disappear">purple</span></label>
+                            
+                        </div>
                     </div>
+                     
 
-                    <div class="color-input">
-                        <label for="cyan300">cyan</label>
-                        <input type="radio" id="cyan300" name="cyan300" value="cyan">
-                    </div>
-
-                    <div class="color-input purple400">
-                        <label for="purple400">purple</label>
-                        <input type="radio" id="purple400" name="purple400" value="purple">
-                    </div>
-
-                   
+                   </div>
                 </fieldset>
             </div>
 
+            </div>
+            
+            
+           
 
+           <button class="dialog-btn btn">Apply</button>
         </form>
+         
     </dialog>
 
     <script src="./scripts/app.js"></script>

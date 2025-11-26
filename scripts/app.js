@@ -29,9 +29,12 @@ function timerDetails() {
 
     
     return {
+        currentMode: "Pomodoro",
+        selfTimer: false,
         pomodoroTime:  1500, // 25 minutes 25:00
         shortBreak:  300, // 5 minutes 05:00
-        longBreak:  900,  // 10 minutes 10:00
+        longBreak: 900,  // 10 minutes 10:00
+        modes: ["Pomodoro", "Long Break", "Short Break"]
 
     }
 }
