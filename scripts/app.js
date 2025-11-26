@@ -2,7 +2,7 @@ const clock = document.querySelector('.clock')
 const pauseBtn = document.querySelector('.pause')
 const btn = document.querySelector('.btn')
 const circularProgress = document.querySelector('.circularProgress')
-
+const strokeArrayStat = Number(circularProgress.getAttribute('stroke-dasharray'))
 const settings = document.querySelector('.setting-icon')
 const list = document.querySelector('.list').children
 const settingsDialog = document.querySelector('.settings-dialog')
@@ -12,6 +12,7 @@ const dialogForm = document.querySelector('.dialog-form')
 const shortBreak = document.querySelector('.short-break')
 const longBreak = document.querySelector('.long-break')
 const pomodoro = document.querySelector('.pomodoro')
+
 
 let time = null
 
@@ -46,9 +47,13 @@ function timerDetails() {
 function startTimer(display,dur) {
     let duration = dur
     let start = Date.now(), diff, minutes, seconds
-     
+    let newStat = 0
+    // const visualProgressStat = visualProgress.getAttribute("stroke-dashoffset")
+    
     const timer = () => {
-
+        newStat += Math.round((strokeArrayStat / dur) * 1000) / 1000
+        circularProgress.setAttribute('stroke-dashoffset',`${newStat}`)
+        console.log(newStat)
          //get number of seconds that have elapsed since startTimer() was called
         diff = duration - Math.trunc((Date.now() - start) / 1000)
         
@@ -147,14 +152,17 @@ pauseBtn.addEventListener('click', (e) => {
 })
 
 shortBreak.addEventListener('click', (e) => {
-    pauseBtn.setAttribute('data-state', 'noState')
-    timerConfig.currentMode = "Short Break"
 
-    
-     if (time !== null) {
+    if (time !== null) {
           time.pause()
         time = null
     } 
+
+    pauseBtn.setAttribute('data-state', 'noState')
+    timerConfig.currentMode = "Short Break"
+    circularProgress.setAttribute('stroke-dashoffset',"0")
+    
+     
   
     resetActiveState()
     shortBreak.setAttribute('data-active', 'true')
@@ -176,6 +184,7 @@ longBreak.addEventListener('click', (e) => {
    
     resetActiveState()
     longBreak.setAttribute('data-active', 'true')
+    circularProgress.setAttribute('stroke-dashoffset',"0")
 
     clock.textContent = `${timerConfig.longBreak / 60}:00`
 
@@ -184,6 +193,7 @@ longBreak.addEventListener('click', (e) => {
 
 pomodoro.addEventListener('click', (e) => {
     pauseBtn.setAttribute('data-state', 'noState')
+    circularProgress.setAttribute('stroke-dashoffset',"0")
 
      if (time !== null) {
           time.pause()
@@ -198,8 +208,10 @@ pomodoro.addEventListener('click', (e) => {
 })
 
 btn.addEventListener('click', (e) => {
-    circularProgress.setAttribute('stroke-dashoffset','100') 
-   console.log(circularProgress.getAttribute('stroke-dashoffset'))
+
+    const randoCal = 1415/300
+
+   console.log(Math.round(randoCal * 1000)/1000)
 })
 
 
