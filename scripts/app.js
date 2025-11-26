@@ -1,3 +1,5 @@
+const ROOTSTYLES = window.getComputedStyle(document.body)
+
 const clock = document.querySelector('.clock')
 const pauseBtn = document.querySelector('.pause')
 const btn = document.querySelector('.btn')
@@ -21,8 +23,12 @@ let time = null
 //Main TimerDetails Instance
 const timerConfig = timerDetails()
 
+//Instance to change color or font theme
+
+const changeThemes = cssVariableValues()
+
 function cssVariableValues() {
-    const ROOTSTYLES = window.getComputedStyle(document.body)
+    
 
     return {
 
@@ -33,15 +39,31 @@ function cssVariableValues() {
 }
 
 function timerDetails() {
+    const modes = ["Pomodoro", "Long Break", "Short Break"]
 
+    const colorOptions =  [
+            ROOTSTYLES.getPropertyValue('--red400').trim(),
+            ROOTSTYLES.getPropertyValue('--cyan300').trim(),
+        ROOTSTYLES.getPropertyValue('--purple400').trim(),
+    ]
+    const fontOptions = [
+
+        ROOTSTYLES.getPropertyValue('--kumbh-sans').trim(),
+        ROOTSTYLES.getPropertyValue('--space-mono').trim(),
+        ROOTSTYLES.getPropertyValue('--roboto-slab').trim()
+    ]
     
     return {
-        currentMode: "Pomodoro",
+        currentMode: modes[0],
+        currentColorTheme: colorOptions[0],
+        currentFontTheme: fontOptions[0],
         selfTimer: false,
         pomodoroTime:  1500, // 25 minutes 25:00
-        shortBreak:  5, // 5 minutes 05:00
+        shortBreak:  300, // 5 minutes 05:00
         longBreak: 900,  // 10 minutes 10:00
-        modes: ["Pomodoro", "Long Break", "Short Break"]
+        modes,
+        colorOptions,
+        fontOptions,
 
     }
 }
@@ -217,16 +239,10 @@ pomodoro.addEventListener('click', (e) => {
 })
 
 btn.addEventListener('click', (e) => {
-    console.log(timerEndedAlarm)
-   timerEndedAlarm.play
+   console.log(timerConfig)
+//    timerEndedAlarm.play()
    
 })
-
-
-
-
-
-
 
 settings.addEventListener('click', (e) => {
     console.log(dialogBtn)
@@ -255,14 +271,17 @@ function getFormDetails(e) {
 
 
 function readFormData(formData) {
-    console.log(formData)
 
-   
+    const results = formData
+    const updateTimerConfig = timerConfig
+
+    //Changes to modal gets applied to timerConfig instance
+
+    results.forEach(elm => {
+        console.log(elm)
+    });
+    console.log(results)
 }
-
-
-
-
 
 
 function test() { 
@@ -295,7 +314,6 @@ function resetActiveState() {
         }  
     }
 }
-
 
 //Called for any timer
 
