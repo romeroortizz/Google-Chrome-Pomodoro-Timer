@@ -14,6 +14,8 @@ const longBreak = document.querySelector('.long-break')
 const pomodoro = document.querySelector('.pomodoro')
 
 
+const timerEndedAlarm = new Audio('./audio/timer.wav')
+ 
 let time = null
 
 //Main TimerDetails Instance
@@ -37,7 +39,7 @@ function timerDetails() {
         currentMode: "Pomodoro",
         selfTimer: false,
         pomodoroTime:  1500, // 25 minutes 25:00
-        shortBreak:  300, // 5 minutes 05:00
+        shortBreak:  5, // 5 minutes 05:00
         longBreak: 900,  // 10 minutes 10:00
         modes: ["Pomodoro", "Long Break", "Short Break"]
 
@@ -47,14 +49,16 @@ function timerDetails() {
 function startTimer(display,dur) {
     let duration = dur
     let start = Date.now(), diff, minutes, seconds
-    let newStat = 0
-    // const visualProgressStat = visualProgress.getAttribute("stroke-dashoffset")
-    
+    let newStat = -Math.round((strokeArrayStat / dur) * 1000) / 1000
+ 
+      
+   
     const timer = () => {
+        
         newStat += Math.round((strokeArrayStat / dur) * 1000) / 1000
-        circularProgress.setAttribute('stroke-dashoffset',`${newStat}`)
+        circularProgress.setAttribute('stroke-dashoffset', `${newStat}`)
         console.log(newStat)
-         //get number of seconds that have elapsed since startTimer() was called
+      
         diff = duration - Math.trunc((Date.now() - start) / 1000)
         
         //truncates the float
@@ -68,14 +72,19 @@ function startTimer(display,dur) {
         display.textContent = minutes + ":" + seconds;
 
         
-        if (diff <= 0) {
-            console.log('end of time')
+        if (diff < 1) {
+            
         
             clearInterval(timerOutID)
+            soundAlarm()
+            return
           
         }  
+
+        
     }
-   
+
+    
     const pause = () => {
       
         clearInterval(timerOutID)   
@@ -208,10 +217,9 @@ pomodoro.addEventListener('click', (e) => {
 })
 
 btn.addEventListener('click', (e) => {
-
-    const randoCal = 1415/300
-
-   console.log(Math.round(randoCal * 1000)/1000)
+    console.log(timerEndedAlarm)
+   timerEndedAlarm.play
+   
 })
 
 
@@ -286,4 +294,12 @@ function resetActiveState() {
         if (!child.hasAttribute("data-active")) {      
         }  
     }
+}
+
+
+//Called for any timer
+
+function soundAlarm() {
+    timerEndedAlarm.currentTime = 0
+    timerEndedAlarm.play()
 }
