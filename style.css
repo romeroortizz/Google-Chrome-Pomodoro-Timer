@@ -107,7 +107,7 @@ body {
   font-optical-sizing: auto;
   background: var(--blue850);
   color: var(--white);
-  font-family: var(--kumbh-sans);
+  font-family: var(--FONT_THEME)
 }
 
 

@@ -254,7 +254,7 @@ settings.addEventListener('click', (e) => {
 dialogBtn.addEventListener('click', getFormDetails)
 
 function getFormDetails(e) {
-    e.preventDefault()
+   
 
     const formDetails = []
    
