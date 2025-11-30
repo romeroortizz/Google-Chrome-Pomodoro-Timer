@@ -169,23 +169,25 @@ pauseBtn.addEventListener('click', (e) => {
 
 shortBreak.addEventListener('click', (e) => {
 
-    if (time !== null) {
-          time.pause()
-        time = null
-    } 
+        pauseBtn.setAttribute('data-state', 'noState')
 
-    pauseBtn.setAttribute('data-state', 'noState')
-    timerConfig.currentMode = "Short Break"
-    circularProgress.setAttribute('stroke-dashoffset',"0")
-    
-     
-  
-    resetActiveState()
-    shortBreak.setAttribute('data-active', 'true')
 
-    // if(timerDetails().shortBreak<=)
-    console.log(timerConfig.shortBreak)
-    clock.textContent = `${timeConversions(timerConfig.shortBreak)}`
+    if (shortBreak.getAttribute('data-active') === 'true') {
+        return
+    } else {
+           if (time !== null) {
+            time.pause()
+            time = null
+        }
+
+
+        resetActiveState()
+        shortBreak.setAttribute('data-active', 'true')
+        circularProgress.setAttribute('stroke-dashoffset', "0")
+
+        clock.textContent = `${timeConversions(timerConfig.shortBreak)}`
+    }
+   
         
     
     
@@ -193,42 +195,55 @@ shortBreak.addEventListener('click', (e) => {
 
 longBreak.addEventListener('click', (e) => {
     pauseBtn.setAttribute('data-state', 'noState')
-    if (time !== null) {
-          time.pause()
-        time = null
-    } 
-   
-   
-    resetActiveState()
-    longBreak.setAttribute('data-active', 'true')
-    circularProgress.setAttribute('stroke-dashoffset',"0")
 
-    clock.textContent = `${timeConversions(timerConfig.longBreak)}`
+    if (longBreak.getAttribute('data-active') === 'true') {
+        return
+    } else {
 
-    console.log('long break')
+        if (time !== null) {
+            time.pause()
+            time = null
+        }
+
+
+        resetActiveState()
+        longBreak.setAttribute('data-active', 'true')
+        circularProgress.setAttribute('stroke-dashoffset', "0")
+
+        clock.textContent = `${timeConversions(timerConfig.longBreak)}`
+
+    }
+   
 });
 
 pomodoro.addEventListener('click', (e) => {
     pauseBtn.setAttribute('data-state', 'noState')
-    circularProgress.setAttribute('stroke-dashoffset',"0")
+    
+    
+    if (pomodoro.getAttribute('data-active') === 'true') {
+        return
+    } else {
 
-     if (time !== null) {
+        if (time !== null) {
           time.pause()
         time = null
-    } 
+        } 
+        
+        resetActiveState()
+        circularProgress.setAttribute('stroke-dashoffset', "0")
+        clock.textContent = `${timeConversions(timerConfig.pomodoroTime)}`
+         pomodoro.setAttribute('data-active', 'true')
+    }
+
+     
 
 
-    resetActiveState()
-    pomodoro.setAttribute('data-active', 'true')
-
-    clock.textContent = `${timeConversions(timerConfig.pomodoroTime)}`
-})
-
-btn.addEventListener('click', (e) => {
-   console.log(timerConfig)
-//    timerEndedAlarm.play()
+    
    
+
+    
 })
+
 
 settings.addEventListener('click', (e) => {
     console.log(dialogBtn)
