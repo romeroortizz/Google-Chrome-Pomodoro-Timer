@@ -21,22 +21,7 @@ const timerEndedAlarm = new Audio('./audio/timer.wav')
 let time = null
 
 //Main TimerDetails Instance
-const timerConfig = timerDetails()
-
-//Instance to change color or font theme
-
-const changeThemes = cssVariableValues()
-
-function cssVariableValues() {
-    
-
-    return {
-
-        getColorTheme: function () { return ROOTSTYLES.getPropertyValue('--COLOR_THEME') },
-        getFontTheme: function () {  return ROOTSTYLES.getPropertyValue('--FONT_THEME') }
-
-    }
-}
+let timerConfig = timerDetails()
 
 function timerDetails() {
     const modes = ["Pomodoro", "Long Break", "Short Break"]
@@ -58,9 +43,9 @@ function timerDetails() {
         currentColorTheme: colorOptions[0],
         currentFontTheme: fontOptions[0],
         selfTimer: false,
-        pomodoroTime:  1500, // 25 minutes 25:00
-        shortBreak:  300, // 5 minutes 05:00
-        longBreak: 900,  // 10 minutes 10:00
+        pomodoroTime:  25, // 25 minutes 25:00
+        shortBreak:  10, // 5 minutes 05:00
+        longBreak: 15,  // 10 minutes 10:00
         modes,
         colorOptions,
         fontOptions,
@@ -69,15 +54,16 @@ function timerDetails() {
 }
 
 function startTimer(display,dur) {
-    let duration = dur
+    let duration = (Number(dur) * 60)
+    console.log(duration)
     let start = Date.now(), diff, minutes, seconds
-    let newStat = -Math.round((strokeArrayStat / dur) * 1000) / 1000
+    let newStat = -Math.round((strokeArrayStat / duration) * 1000) / 1000
  
       
    
     const timer = () => {
         
-        newStat += Math.round((strokeArrayStat / dur) * 1000) / 1000
+        newStat += Math.round((strokeArrayStat / duration) * 1000) / 1000
         circularProgress.setAttribute('stroke-dashoffset', `${newStat}`)
         console.log(newStat)
       
@@ -102,11 +88,10 @@ function startTimer(display,dur) {
             return
           
         }  
-
         
     }
 
-    
+
     const pause = () => {
       
         clearInterval(timerOutID)   
@@ -199,7 +184,8 @@ shortBreak.addEventListener('click', (e) => {
     shortBreak.setAttribute('data-active', 'true')
 
     // if(timerDetails().shortBreak<=)
-    clock.textContent = `0${timerConfig.shortBreak / 60}:00`
+    console.log(timerConfig.shortBreak)
+    clock.textContent = `${timeConversions(timerConfig.shortBreak)}`
         
     
     
@@ -217,7 +203,7 @@ longBreak.addEventListener('click', (e) => {
     longBreak.setAttribute('data-active', 'true')
     circularProgress.setAttribute('stroke-dashoffset',"0")
 
-    clock.textContent = `${timerConfig.longBreak / 60}:00`
+    clock.textContent = `${timeConversions(timerConfig.longBreak)}`
 
     console.log('long break')
 });
@@ -235,7 +221,7 @@ pomodoro.addEventListener('click', (e) => {
     resetActiveState()
     pomodoro.setAttribute('data-active', 'true')
 
-    clock.textContent = `${timerConfig.pomodoroTime / 60}:00`
+    clock.textContent = `${timeConversions(timerConfig.pomodoroTime)}`
 })
 
 btn.addEventListener('click', (e) => {
@@ -271,35 +257,21 @@ function getFormDetails(e) {
 
 
 function readFormData(formData) {
+    const store = []
+    const results = formData.reduce( (obj,item) => ({...obj, [item.key]: item.value}), {})
+    
+    timerConfig = { ...timerConfig, ...results }
+    
+    //change css variables
 
-    const results = formData
-    const updateTimerConfig = timerConfig
-
-    //Changes to modal gets applied to timerConfig instance
-
-    results.forEach(elm => {
-        console.log(elm)
-    });
-    console.log(results)
-}
-
-
-function test() { 
-    // if (!time) {
-    //     time = startTimer(clock)
-    // }
-
-    // time.timer()
+    console.log(timerConfig)
+    console.log(timerConfig.currentFontTheme)
+    document.documentElement.style.setProperty("--COLOR_THEME", `var(${timerConfig.currentColorTheme})`)
+    document.documentElement.style.setProperty("--FONT_THEME", `var(${timerConfig.currentFontTheme})`)
+    
    
-    // if (!time) {
-    //     time = startTimer(clock)
-    // }
-
-    // time.reset()
- 
-    console.log(getFormDetails())
-     
 }
+
 
 //iterator through list and set data-active to false
 function resetActiveState() {
@@ -309,9 +281,7 @@ function resetActiveState() {
         if (child.hasAttribute("data-active")) {
             child.getAttribute("data-active") === "true" ? child.setAttribute("data-active","false")  :  undefined
         }
-        //to be continued
-        if (!child.hasAttribute("data-active")) {      
-        }  
+       
     }
 }
 
@@ -321,3 +291,17 @@ function soundAlarm() {
     timerEndedAlarm.currentTime = 0
     timerEndedAlarm.play()
 }
+
+function timeConversions(timeInput) {
+    const selectedTime = Number(timeInput)
+
+    if (selectedTime >= 10 && selectedTime <= 59) {
+       return `${selectedTime}:00`
+    }
+
+    if (selectedTime < 10 && selectedTime >= 1) {
+        return `0${selectedTime}:00`
+    }
+    
+}
+
